@@ -24,18 +24,18 @@
                     <tbody>
                     <tr *ngFor="let laptop of cartList; let i=index;">
                       <td><strong>{{laptop.brandName}}</strong></td>
-                      <td>{{laptop.brandCost}}</td>
+                      <td>${{laptop.brandCost | number:'1.2-2'}}</td>
                       <td>
                         <ul *ngFor="let configItem of laptop.config;">
-                          <li>{{configItem.configName}} - {{configItem.configChoice}} - {{configItem.cost}}</li>
+                          <li>{{configItem.configName}} - {{configItem.configChoice}} - ${{configItem.cost | number:'1.2-2'}}</li>
                         </ul>
                       </td>
-                      <td>{{laptop.totalCost}}</td>
-                      <td><a type="button" class="text-danger" (click)="removeItemFromCart(i)">Remove</a></td>
+                      <td>${{laptop.totalCost | number:'1.2-2'}}</td>
+                      <td><a type="button" class="text-danger" (click)="removeItemFromCart(i)"><strong>Remove</strong></a></td>
                     </tr>
                     <tr>
                       <td colspan="3" class="pt-4"><strong>Total Cost</strong></td>
-                      <td colspan="2" class="pt-4">{{totalCostOfItemsInCart}}</td>
+                      <td colspan="2" class="pt-4"><strong>${{totalCostOfItemsInCart | number:'1.2-2'}}</strong></td>
                     </tr>
                     </tbody>
                   </table>
