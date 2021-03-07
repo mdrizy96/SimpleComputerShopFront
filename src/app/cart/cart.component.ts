@@ -10,20 +10,28 @@ import {ICartLaptop} from '../core/models/shop.model';
 })
 export class CartComponent implements OnInit {
   cartList!: ICartLaptop[];
+  totalCostOfItemsInCart = 0;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartList = this.cartService.getCartItems();
+    this.calculateTotalCostOfItemsInCart();
   }
 
   clearCart(): void{
     this.cartList = [];
     this.cartService.clearCartItems();
+    this.calculateTotalCostOfItemsInCart();
   }
 
   removeItemFromCart(index: number): void {
     this.cartList.splice(index, 1);
     this.cartService.deleteItemFromCart(index);
+    this.calculateTotalCostOfItemsInCart();
+  }
+
+  calculateTotalCostOfItemsInCart(): void{
+    this.totalCostOfItemsInCart =  this.cartList.reduce((acc, val) => acc + val.totalCost, 0 );
   }
 }
