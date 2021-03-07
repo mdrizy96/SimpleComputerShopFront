@@ -1,1 +1,76 @@
-<p>home works!</p>
+<section class="page-section bg-light" id="shop">
+  <div class="container">
+    <div class="row d-flex justify-content-center mx-auto">
+      <div class="col-sm-12 col-md-7 col-lg-6">
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Shop Laptop</h3>
+          </div>
+
+          <div class="card-body">
+            <div *ngIf="error" class="row">
+              <p>{{error}}</p>
+            </div>
+
+            <form (submit)="addLaptopToCart()" [formGroup]="laptopForm">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="brandId">Brand</label>
+                    <select class="form-control form-control-rounded" formControlName="brandId" id="brandId"
+                            name="brandId" (change)="handleBrandChange()">
+                      <option [ngValue]="null">Select Brand</option>
+                      <option *ngFor="let brand of laptopBrandList"
+                              [ngValue]="brand.brandId">{{brand.brandName}} - ${{brand.cost}}</option>
+                    </select>
+                  <!--<div *ngIf="brandId.invalid && (brandId.touched)"
+                       class="alert alert-danger">
+                    <label *ngIf="brandId.errors.required">Brand is required</label>
+                  </div>-->
+                  </div>
+
+                  <ng-container *ngIf="showLaptopConfigItems && laptopConfigItemList">
+                    <ng-container formArrayName="configItems">
+                      <div class="form-check" *ngFor="let configItem of configItems.controls; let configItemIndex=index;">
+                        <ng-container [formGroupName]="configItemIndex">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" formControlName="checked" (change)="onConfigItemCheckChange(configItemIndex)" [checked]="configItem.get('checked')?.value">{{configItem.get('itemName')?.value}}
+                          </label>
+
+                          <div class="col-12 ml-2">
+                            <ng-container formArrayName="configChoices">
+                              <div class="form-check" *ngFor="let configChoice of configChoiceArray(configItemIndex).controls; let configChoiceIndex=index;">
+                                <ng-container [formGroupName]="configChoiceIndex">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="radio-{{configItemIndex}}" (change)="handleConfigChoiceChange(configItemIndex, configChoiceIndex, configChoice)">{{configChoice.get('option')?.value}} - ${{configChoice.get('cost')?.value}}
+                                  </label>
+                                </ng-container>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+
+                </div>
+              </div>
+            </form>
+
+            <div class="col-12">
+              <div class="d-flex mx-auto justify-content-center align-items-center">
+                <div class="mr-3">
+                  <p>Total cost <strong>${{this.totalLaptopCost | number:'1.2-2'}}</strong> </p>
+                </div>
+                <div>
+                  <button type="button" [disabled]="!laptopForm.valid" (click)="addLaptopToCart()" class="btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
