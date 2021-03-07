@@ -186,6 +186,13 @@ export class HomeComponent implements OnInit {
       this.localStore.store('shop-cart-items', cartLaptops);
     }
     this.toggleCartUpdate();
+    this.resetShoppingForm();
+  }
+
+  resetShoppingForm(): void{
+    this.laptopForm.reset();
+    this.configItems.clear();
+    this.totalLaptopCost = 0;
   }
 
   handleBrandChange(): void {

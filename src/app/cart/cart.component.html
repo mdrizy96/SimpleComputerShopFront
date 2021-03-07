@@ -1,1 +1,53 @@
-<p>cart works!</p>
+<section class="page-section bg-light" id="shop">
+  <div class="container">
+    <div class="row d-flex justify-content-center mx-auto">
+      <div class="col-sm-12 col-md-10 col-lg-10">
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Cart</h3>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="table-responsive p-0">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>Brand</th>
+                      <th>Brand Cost</th>
+                      <th>Configuration</th>
+                      <th>Total Cost</th>
+                      <th>Options</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let laptop of cartList; let i=index;">
+                      <td><strong>{{laptop.brandName}}</strong></td>
+                      <td>{{laptop.brandCost}}</td>
+                      <td>
+                        <ul *ngFor="let configItem of laptop.config;">
+                          <li>{{configItem.configName}} - {{configItem.configChoice}} - {{configItem.cost}}</li>
+                        </ul>
+                      </td>
+                      <td>{{laptop.totalCost}}</td>
+                      <td><a type="button" class="text-danger" (click)="removeItemFromCart(i)">Remove</a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="row d-flex justify-content-center mx-auto">
+                  <div class="col-12">
+                    <button class="btn btn-primary mr-3 mb-2" (click)="clearCart()">Clear Cart</button>
+                    <button class="btn btn-dark mb-2" [routerLink]="['/home']">Back Home</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
